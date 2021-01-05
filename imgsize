@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+
+from PIL import Image
+import sys
+import io
+
+
+def size(file):
+    img = Image.open(file)
+    w, h = img.size
+    print(f"{w} {h}")
+
+
+def main(args):
+    if len(args) > 0 and args[0] != "-":
+        for file in args:
+            size(file)
+    else:
+        size(io.BytesIO(sys.stdin.buffer.read()))
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

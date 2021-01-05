@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+
+from PIL import Image
+import sys
+import io
+
+
+def resize(file, new_size, resample=Image.BICUBIC):
+    Image.open(file).resize(new_size).save(file)
+
+
+def main(args):
+    if len(args) < 3:
+        return 2
+    new_size = tuple(map(int, args[:2]))
+    for file in args[2:]:
+        resize(file, new_size)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

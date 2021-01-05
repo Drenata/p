@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+
+import sys
+import cv2 as cv
+from _.image_cv import tight_crop
+
+
+def run(file):
+    img = cv.imread(file, -1)
+    smol_img = tight_crop(img)
+    data = cv.imencode(".png", smol_img)[1].tobytes()
+    sys.stdout.buffer.write(data)
+
+
+def main(args):
+    if len(args) > 0 and args[0] != "-":
+        for file in args:
+            run(file)
+    else:
+        for file in sys.stdin.readlines():
+            run(file)
+
+
+sys.exit(main(sys.argv[1:]))

@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+import argparse
+import pathlib as pl
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_directory")
+    args = parser.parse_args()
+
+    for directory in [
+        d for d in pl.Path(args.input_directory).glob("**/*") if d.is_dir()
+    ]:
+        if len([f for f in directory.iterdir()]) == 0:
+            directory.rmdir()
