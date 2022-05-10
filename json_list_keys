@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+import json
+import sys
+import os
+
+def main(args):
+    if len(args) != 1:
+        return 2
+
+    file = args[0]
+
+    try:
+        with open(file, "r") as f:
+            data = json.load(f)
+    except Exception as e:
+        return str(e)
+
+    if not isinstance(data, dict):
+        return "JSON is not object"
+
+    return str(list(data.keys()))
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
